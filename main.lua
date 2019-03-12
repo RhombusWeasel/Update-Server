@@ -78,6 +78,7 @@ local function getFiles(tab, path, folder)
   end
 end
 
+
 --[[Main Functions:
   load_game is called once at program start.
 
@@ -86,23 +87,45 @@ end
 
 local enet = require("enet")
 
-hosts = {}
-clients = {}
-names = {}
-game = {}
 engine = {
   class = class,
   log = log,
-  server_col = {0,1,0,1},
   host = enet.host_create("*:6789"),
-  hosts = require("Saved_Data.host_data"),
-  players = {},
-  clients = {},
 }
 
-function load_game()
-  game.ecs = engine.system.ecs:new()
-  engine.commands.spawn_star({"0", "0", "sol"})
+local function addFile(tab, path, folder, file)
+  local ext = string.sub(file, #file - 3, #file)
+  file = string.sub(file, 1, #file - 4)
+  local filePath = path.."/"..folder.."/"..file
+  if ext == ".lua" then
+    tab[folder][file] = require(path.."."..folder.."."..file)
+  end
+end
+
+local function getManifest(tab, path, folder)
+  local filePath = path
+  if folder == nil then
+    folder = ""
+  else
+    filePath = path.."/"..folder
+  end
+  local data = scandir(filePath)
+  for i = 1, #data do
+    local file = data[i]
+    if file ~= "." and file ~= ".." then
+      local f = io.open(filePath.."/"..file, "r")
+      local x,err=f:read(1)
+      if err == "Is a directory" then
+        if folder ~= "" then
+          getManifest(tab, filePath, file)
+        else
+          getManifest(tab, path, file)
+        end
+      else
+        table.insert(filepath.."/"..file)
+      end
+    end
+  end
 end
 
 function update()
@@ -126,11 +149,18 @@ end
 
 --PROGRAM START:
 os.execute("clear")
+os.execute("cd /usr/ubuntu/Update-Server/versions/latest")
+os.execute("git clone https://github.com/RhombusWeasel/Expense.git")
 
 getFiles(engine, "Lib")
-getFiles(engine, "Data")
 
-engine.exit_bool = false
-while not engine.exit_bool do
-  update()
+local manifest = getManifest(manifest, "versions", "latest")
+
+for i = 1, #manifest do
+  print(manifest[i])
 end
+
+--engine.exit_bool = false
+--while not engine.exit_bool do
+--  update()
+--end
