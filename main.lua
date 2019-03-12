@@ -113,7 +113,14 @@ local function getManifest(tab, path, folder)
           getManifest(tab, path, file)
         end
       else
-        table.insert(tab, filePath.."/"..file)
+        if tab[folder] == nil then
+          tab[folder] = {}
+        end
+        local data = {
+          file = file,
+          path = filePath.."/"..file,
+        }
+        table.insert(tab[folder], data)
       end
     end
   end
@@ -129,10 +136,6 @@ function update()
         if engine.message[pkt.command] then
           engine.message[pkt.command](event, pkt)
         end
-      elseif event.type == "connect" then
-        engine.message.auth(event)
-      elseif event.type == "disconnect" then
-        
       end
     end
     event = engine.host:service()
@@ -144,13 +147,14 @@ os.execute("clear")
 
 getFiles(engine, "Lib")
 
-local manifest = getManifest({}, "Expense")
-
-for i = 1, #manifest do
-  print(manifest[i])
+engine.manifest = getManifest({}, "Expense")
+for k, v in pairs(engine.manifest) do
+  for i = 1, #v do
+    print(v[i].file, v[i].path)
+  end
 end
 
---engine.exit_bool = false
---while not engine.exit_bool do
---  update()
---end
+engine.exit_bool = true
+while not engine.exit_bool do
+  update()
+end
