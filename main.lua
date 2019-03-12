@@ -107,23 +107,23 @@ local function getManifest(tab, path, folder)
       local f = io.open(filePath.."/"..file, "r")
       local x,err=f:read(1)
       if err == "Is a directory" then
-        if folder ~= "" then
-          getManifest(tab, filePath, file)
-        else
-          getManifest(tab, path, file)
+        if folder ~= ".git" then
+          if folder ~= "" then
+            getManifest(tab, filePath, file)
+          else
+            getManifest(tab, path, file)
+          end
         end
       else
-        if folder ~= ".git" then
-          if tab[file] == nil then
-            tab[file] = {}
-          end
-          local data = {
-            file = file,
-            path = filePath.."/"..file,
-            down = false,
-          }
-          table.insert(tab[file], data)
+        if tab[file] == nil then
+          tab[file] = {}
         end
+        local data = {
+          file = file,
+          path = filePath.."/"..file,
+          down = false,
+        }
+        table.insert(tab[file], data)
       end
     end
   end
@@ -153,7 +153,7 @@ getFiles(engine, "Lib")
 engine.manifest = getManifest({}, "Expense")
 for k, v in pairs(engine.manifest) do
   for i = 1, #v do
-    print(engine.string.r_pad(v[i].file, 20), v[i].path)
+    print(engine.string.l_pad(v[i].file, 20), v[i].path)
   end
 end
 
