@@ -113,14 +113,16 @@ local function getManifest(tab, path, folder)
           getManifest(tab, path, file)
         end
       else
-        if tab[folder] == nil then
-          tab[folder] = {}
+        if folder ~= ".git" then
+          if tab[folder] == nil then
+            tab[folder] = {}
+          end
+          local data = {
+            file = file,
+            path = filePath.."/"..file,
+          }
+          table.insert(tab[folder], data)
         end
-        local data = {
-          file = file,
-          path = filePath.."/"..file,
-        }
-        table.insert(tab[folder], data)
       end
     end
   end
