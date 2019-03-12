@@ -143,7 +143,7 @@ os.execute("clear")
 
 getFiles(engine, "Lib")
 
-local manifest = getManifest(manifest, "versions", "latest")
+local manifest = getManifest(manifest, "Expense")
 
 for i = 1, #manifest do
   print(manifest[i])
