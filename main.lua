@@ -153,7 +153,7 @@ getFiles(engine, "Lib")
 engine.manifest = getManifest({}, "Expense")
 for k, v in pairs(engine.manifest) do
   for i = 1, #v do
-    print(string.r_pad(v[i].file, 20), v[i].path)
+    print(engine.string.r_pad(v[i].file, 20), v[i].path)
   end
 end
 
