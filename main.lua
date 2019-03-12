@@ -117,6 +117,7 @@ local function getManifest(tab, path, folder)
       end
     end
   end
+  return tab
 end
 
 function update()
