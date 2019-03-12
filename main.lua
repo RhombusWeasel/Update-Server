@@ -113,7 +113,7 @@ local function getManifest(tab, path, folder)
           getManifest(tab, path, file)
         end
       else
-        table.insert(filepath.."/"..file)
+        table.insert(filePath.."/"..file)
       end
     end
   end
