@@ -93,15 +93,6 @@ engine = {
   host = enet.host_create("*:6789"),
 }
 
-local function addFile(tab, path, folder, file)
-  local ext = string.sub(file, #file - 3, #file)
-  file = string.sub(file, 1, #file - 4)
-  local filePath = path.."/"..folder.."/"..file
-  if ext == ".lua" then
-    tab[folder][file] = require(path.."."..folder.."."..file)
-  end
-end
-
 local function getManifest(tab, path, folder)
   local filePath = path
   if folder == nil then
@@ -149,6 +140,8 @@ end
 
 --PROGRAM START:
 os.execute("clear")
+os.execute("cd /usr/ubuntu/Update-Server/versions")
+os.execute("mkdir latest")
 os.execute("cd /usr/ubuntu/Update-Server/versions/latest")
 os.execute("git clone https://github.com/RhombusWeasel/Expense.git")
 
