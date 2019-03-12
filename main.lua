@@ -141,7 +141,7 @@ end
 --PROGRAM START:
 os.execute("clear")
 os.execute("cd /usr/ubuntu/Update-Server/versions")
-os.execute("mkdir latest")
+os.execute("mkdir ./latest")
 os.execute("cd /usr/ubuntu/Update-Server/versions/latest")
 os.execute("git clone https://github.com/RhombusWeasel/Expense.git")
 
