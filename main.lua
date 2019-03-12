@@ -114,14 +114,15 @@ local function getManifest(tab, path, folder)
         end
       else
         if folder ~= ".git" then
-          if tab[folder] == nil then
-            tab[folder] = {}
+          if tab[file] == nil then
+            tab[file] = {}
           end
           local data = {
             file = file,
             path = filePath.."/"..file,
+            down = false,
           }
-          table.insert(tab[folder], data)
+          table.insert(tab[file], data)
         end
       end
     end
@@ -152,7 +153,7 @@ getFiles(engine, "Lib")
 engine.manifest = getManifest({}, "Expense")
 for k, v in pairs(engine.manifest) do
   for i = 1, #v do
-    print(v[i].file, v[i].path)
+    print(string.r_pad(v[i].file, 20), v[i].path)
   end
 end
 
