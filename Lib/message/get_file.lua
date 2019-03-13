@@ -3,7 +3,7 @@ return function(event, pkt)
   local path = pkt.path
   local ext = string.sub(path, #path - 3, #path)
   if ext == ".lua" or ext == ".sha" then
-    local f = io.open("./"..path, "r")
+    local f = io.open("./"..path, "rb")
     local pkt = {
       command = "write_file",
       path = path,
