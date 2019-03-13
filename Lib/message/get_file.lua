@@ -1,4 +1,5 @@
 return function(event, pkt)
+  print(event.peer, "Requesting "..pkt.path)
   local path = pkt.path
   local ext = string.sub(path, #path - 3, #path)
   if ext == ".lua" or ext == ".sha" then
