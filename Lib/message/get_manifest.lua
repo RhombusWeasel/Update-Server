@@ -1,3 +1,7 @@
 return function(event, pkt)
-  event.peer:send(engine.string.serialize(engine.manifest))
+  local data = {
+    command = "write_manifest",
+    data = engine.string.serialize(engine.manifest)
+  }
+  event.peer:send(engine.string.serialize(data))
 end
