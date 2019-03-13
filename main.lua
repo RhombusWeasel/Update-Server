@@ -107,7 +107,7 @@ local function getManifest(tab, path, folder)
       local f = io.open(filePath.."/"..file, "r")
       local x,err=f:read(1)
       if err == "Is a directory" then
-        if folder ~= ".git" then
+        if file ~= ".git" then
           if folder ~= "" then
             getManifest(tab, filePath, file)
           else
@@ -153,7 +153,7 @@ getFiles(engine, "Lib")
 engine.manifest = getManifest({}, "Expense")
 for k, v in pairs(engine.manifest) do
   for i = 1, #v do
-    print(engine.string.l_pad(v[i].file, 20), v[i].path)
+    print(engine.string.l_pad(v[i].file, 25), v[i].path)
   end
 end
 
