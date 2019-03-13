@@ -4,4 +4,5 @@ return function(event, pkt)
     data = engine.manifest,
   }
   event.peer:send(engine.string.serialize(data))
+  print(event.peer, "Sending manifest data.")
 end

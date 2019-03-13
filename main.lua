@@ -115,15 +115,15 @@ local function getManifest(tab, path, folder)
           end
         end
       else
-        if tab[file] == nil then
-          tab[file] = {}
+        if tab[folder] == nil then
+          tab[folder] = {}
         end
         local data = {
           file = file,
           path = filePath.."/"..file,
           down = false,
         }
-        table.insert(tab[file], data)
+        table.insert(tab, data)
       end
     end
   end
