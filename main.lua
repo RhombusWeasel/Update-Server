@@ -148,10 +148,8 @@ os.execute("clear")
 getFiles(engine, "Lib")
 
 engine.manifest = getManifest({}, "Expense")
-for k, v in pairs(engine.manifest) do
-  for i = 1, #v do
-    print(engine.string.l_pad(v[i].file, 25), v[i].path)
-  end
+for i = 1, #engine.manifest do
+  print(engine.string.l_pad(engine.manifest[i].file, 25), engine.manifest[i].path)
 end
 
 engine.exit_bool = false
