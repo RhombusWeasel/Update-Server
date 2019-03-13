@@ -115,9 +115,6 @@ local function getManifest(tab, path, folder)
           end
         end
       else
-        if tab[folder] == nil then
-          tab[folder] = {}
-        end
         local data = {
           file = file,
           path = filePath.."/"..file,
