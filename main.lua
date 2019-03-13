@@ -157,7 +157,7 @@ for k, v in pairs(engine.manifest) do
   end
 end
 
-engine.exit_bool = true
+engine.exit_bool = false
 while not engine.exit_bool do
   update()
 end
