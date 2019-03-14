@@ -106,6 +106,7 @@ local function getManifest(tab, path, folder)
     if file ~= "." and file ~= ".." then
       local f = io.open(filePath.."/"..file, "r")
       local x,err=f:read(1)
+      f:close()
       if err == "Is a directory" then
         if file ~= ".git" then
           if folder ~= "" then
@@ -115,10 +116,19 @@ local function getManifest(tab, path, folder)
           end
         end
       else
+        local f = io.open(filePath.."/"..file, "r")
+        local s_data = f:read("*a")
+        f:close()
+        
+        local total = 0
+        for i = 1, #s_data do
+          total = total + string.byte(s_data, i)
+        end
         local data = {
           file = file,
           path = filePath.."/"..file,
           down = false,
+          chk = total,
         }
         table.insert(tab, data)
       end
@@ -149,7 +159,7 @@ getFiles(engine, "Lib")
 
 engine.manifest = getManifest({}, "Expense")
 for i = 1, #engine.manifest do
-  print(engine.string.l_pad(engine.manifest[i].file, 25), engine.manifest[i].path)
+  print(engine.string.l_pad(engine.manifest[i].file, 25), engine.manifest[i].chk)
 end
 
 engine.exit_bool = false
