@@ -90,7 +90,7 @@ local enet = require("enet")
 engine = {
   class = class,
   log = log,
-  host = enet.host_create("*:6789"),
+  host = enet.host_create("*:6700"),
 }
 
 local function getManifest(tab, path, folder)
