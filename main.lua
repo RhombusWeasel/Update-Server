@@ -120,10 +120,16 @@ local function getManifest(tab, path, folder)
         local s_data = f:read("*a")
         f:close()
         
-        local total = 0
+        local b_data = {}
         for i = 1, #s_data do
-          total = total + string.byte(s_data, i)
+          b_data[i] = string.byte(s_data, i)
         end
+        
+        local total = 0
+        for i = 1, #b_data do
+          total = total + b_data[i]
+        end
+        
         local data = {
           file = file,
           path = filePath.."/"..file,
