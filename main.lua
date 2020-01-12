@@ -127,7 +127,7 @@ local function getManifest(tab, path, folder)
         
         local total = 0
         for i = 1, #b_data do
-          total = total + b_data[i]
+          total = total + (b_data[i] * i)
         end
         
         local data = {
